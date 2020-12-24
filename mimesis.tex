@@ -170,21 +170,20 @@ If we denote the number of red vertices at instant $n$ by $\alpha_n$ and the num
 \langle N(v_i \in B) \rangle = q \cdot (\beta_n -1) + (1-q) \cdot \alpha_n
 \end{equation}
 
-Using the above equations we may define:
+Using the above equations we may define the expected value:
 
 \begin{equation}
 \langle \alpha_{n+1} \rangle = \alpha_n \left( \frac{q \cdot (\alpha_n -1)}{q \cdot (\alpha_n -1) + (1-q) \cdot \beta_n} \right) + \beta_n \left(\frac{(1-q) \cdot \alpha_n}{q \cdot (\beta_n -1) + (1-q) \cdot \alpha_n} \right)
 \end{equation}
 
-and we may deduce that $\langle \beta_{n+1} \rangle = N - \langle \alpha_{n+1} \rangle$. It must be noted that this is an approximation
-that works particularly well when $0< q < 0.2$ or when $0.8 \leq q < 1.0$.  
+and we may deduce that $\langle \beta_{n+1} \rangle = N - \langle \alpha_{n+1} \rangle$. 
 
 \subsection{$\alpha_n > \beta_n$ implies that $\lim\limits_{n \to \infty} \langle \alpha_n \rangle = N$}
 
 Assuming that $q > 1-q$, a simple calculation shows that:
 
 \begin{equation}
-\langle \alpha_{n+1} \rangle - \alpha_n \geq 0 \iff \beta_n \geq \alpha_n
+\langle \alpha_{n+1} \rangle - \alpha_n \geq 0 \iff \alpha_n \geq \beta_n
 \end{equation}
 
 and since:
