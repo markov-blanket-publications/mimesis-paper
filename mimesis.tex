@@ -1,0 +1,224 @@
+\documentclass{article}
+
+% ready for submission
+\usepackage{arxiv}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{amsmath}}
+
+\title{Mimesis as random graph coloring}
+
+\date{April 29, 2019}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{%
+  Aidan Rocke\\
+  \texttt{aidanrocke@gmail.com} \\
+  % examples of more authors
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \AND
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+   Inspired by the thought-provoking masterpiece by René Girard, Le Bouc Emissaire, a simple and tractable model for mimetic behaviour occurred to me. When we change our beliefs, we do so not because of their intrinsic value. Our desire to switch from belief $A$ to belief $B$ is proportional to the number of adherents of belief $B$ that we know.
+\end{abstract}
+
+\section{Mimesis as a decentralised process}
+
+In this article, I propose that when we change our beliefs, we do so not because of their intrinsic value. Our desire to switch from belief $A$ to belief $B$ is proportional to the number of adherents of belief $B$ that we know. Technically, I modelled the problem of two conflicting beliefs that propagate through a network with $N$ nodes in a decentralised manner. These beliefs are in some sense competing for adherents.
+
+Using vertex notation, two individuals $v_i$ and $v_j$ with identical beliefs are connected with probability $q$, and $1-q$ otherwise. $v_i$ changes its belief
+with a probability proportional to the number of nodes connected to $v_i$ that have opposing views.
+
+Two key motivating questions are:
+
+\quad	1. Under what circumstances does a belief get completely wiped out?
+
+\quad	2. Under what circumstances does a belief completely dominate(i.e. wipe out) all other beliefs?
+
+In the scenario where there are only two possible beliefs these two questions are equivalent and I show that on average it's sufficient that
+$q > 1-q$ and that initially, one belief has a greater number of adherents than the other.
+
+Nodes carrying the first belief were assigned to the set of red vertices, $R$, and nodes carrying the second belief were assigned to the
+set of blue vertices, $B$. After further reflection, I chose $+1$ and $-1$ as labels. The reason being that a change of belief using this representation would be equivalent
+to multiplication by $-1$. As a result, the $N$ vertices could be represented by an N-dimensional vector:
+
+\begin{equation}
+\vec{v} \in \{-1,1\}^N
+\end{equation}
+
+where $N= \lvert v_i \in R \rvert + \lvert v_j \in B \rvert$.
+
+
+\newpage
+
+\section{A random graph model}
+
+Using this representation, between each pair of vertices we may define a virtual weight matrix $W$:
+
+\begin{equation}
+w_{ij} = v_i \cdot v_j
+\end{equation}
+
+where $w_{ij}=+1$ implies identical beliefs and we have $w_{ij}=-1$ otherwise.
+
+Now, we note that $W$ may be conveniently decomposed as follows:
+
+\begin{equation}
+W= W^+ + W^-
+\end{equation}
+
+where $W^-$ denotes potential connections between nodes of different color and $W^+$ denotes potential connections between nodes
+of identical colors.
+
+In order to simulate variations in connectivity we may assume that nodes of the same color are connected with probability $\frac{1}{2} < q < 1$ and nodes of different color are connected with probability $1-q$. Given $W$ we may therefore construct the adjacency matrix $A$ by sampling random matrices:
+
+\begin{equation}
+M_1, M_2 \sim \mathcal{U}([0,1])^{N \times N}
+\end{equation}
+
+\begin{equation}
+M^+ = 1_{[0,q)} \circ M_1
+\end{equation}
+
+\begin{equation}
+M^- = 1_{(1-q,1]} \circ M_2
+\end{equation}
+
+where $1_{[0,q)}$ denotes the characteristic function over the set $[0,q)$ and then we compute the Hadamard products:
+
+\begin{equation}
+A^+ = M^+ \cdot W^+
+\end{equation}
+
+\begin{equation}
+A^- = M^- \cdot W^-
+\end{equation}
+
+so the adjacency matrix is given by $A = A^+ + A^-$.
+
+\section{Stochastic dynamics for computer simulation}
+
+Now, in order to simulate stochastic dynamics we simply use majority vote:
+
+\begin{equation}
+p(v_i^{n+1}=v_i^n) = \frac{\bar{N_i}}{N_i}
+\end{equation}
+
+\begin{equation}
+p(v_i^{n+1}=-1 \cdot v_i^n) = 1- \frac{\bar{N_i}}{N_i}
+\end{equation}
+
+\begin{equation}
+\bar{N_i} = \lvert A(i,-) > 0 \rvert -1
+\end{equation}
+
+\begin{equation}
+N_i = \bar{N_i} + \lvert A(i,-) < 0 \rvert
+\end{equation}
+
+where $\lvert A(i,-) > 0 \rvert -1$ denotes the number of connections between $v_i$ and nodes sharing the same belief without
+counting a connection to itself.
+
+\newpage 
+
+\section{Analysis}
+
+If we denote the number of red vertices at instant $n$ by $\alpha_n$ and the number of blue vertices by $\beta_n$ we may observe that the expected number of neighbors is given by:
+
+\begin{equation}
+\langle N(v_i \in R) \rangle = q \cdot (\alpha_n -1) + (1-q) \cdot \beta_n
+\end{equation}
+
+\begin{equation}
+\langle N(v_i \in B) \rangle = q \cdot (\beta_n -1) + (1-q) \cdot \alpha_n
+\end{equation}
+
+Using the above equations we may define:
+
+\begin{equation}
+\langle \alpha_{n+1} \rangle = \alpha_n \left( \frac{q \cdot (\alpha_n -1)}{q \cdot (\alpha_n -1) + (1-q) \cdot \beta_n} \right) + \beta_n \left(\frac{(1-q) \cdot \alpha_n}{q \cdot (\beta_n -1) + (1-q) \cdot \alpha_n} \right)
+\end{equation}
+
+and we may deduce that $\langle \beta_{n+1} \rangle = N - \langle \alpha_{n+1} \rangle$. It must be noted that this is an approximation
+that works particularly well when $0< q < 0.2$ or when $0.8 \leq q < 1.0$.  
+
+\subsection{$\alpha_n > \beta_n$ implies that $\lim\limits_{n \to \infty} \langle \alpha_n \rangle = N$}
+
+Assuming that $q > 1-q$, a simple calculation shows that:
+
+\begin{equation}
+\langle \alpha_{n+1} \rangle - \alpha_n \geq 0 \iff \beta_n \geq \alpha_n
+\end{equation}
+
+and since:
+
+\begin{equation}
+\langle \alpha_{n+1} \rangle - \alpha_n= 0 \iff \alpha_n = \beta_n
+\end{equation}
+
+we may deduce that:
+
+\begin{equation}
+\lim\limits_{n \to \infty} \langle \alpha_{n} \rangle = N
+\end{equation}
+
+\subsection{Analysis of $\Delta \alpha$}
+
+Using the fact that $\beta_n = N - \alpha_n$ we may derive the following continuous-space variant of $\Delta \alpha_n = \langle \alpha_{n+1} \rangle - \alpha_n$:
+
+\begin{equation}
+\Delta \alpha(\alpha,\gamma) = \frac{\alpha \cdot (N-\alpha)}{\gamma \cdot (\alpha -1) + (N-\alpha)} - \frac{\alpha \cdot (N-\alpha)}{\gamma \cdot (N - \alpha -1) + \alpha}
+\end{equation}
+
+where $\gamma = \frac{q}{1-q}$.
+
+\section*{References}
+
+\small
+
+[1] Réka Albert & Albert-László Barabási. Statistical mechanics of complex networks. 2002.
+
+[2] René Girard. Le Bouc émissaire. 1986. 
+
+[3] P. Erdös and A. Rényi. On the evolution of random graphs. 1960.
+
+[4] G. Grimmett and C. McDiarmid. On colouring random graphs. 1975.
+
+\end{document}

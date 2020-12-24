@@ -1,0 +1,217 @@
+\documentclass{article}
+
+% ready for submission
+\usepackage{arxiv}
+
+% to compile a preprint version, e.g., for submission to arXiv, add add the
+% [preprint] option:
+%     \usepackage[preprint]{neurips_2018}
+
+% to compile a camera-ready version, add the [final] option, e.g.:
+%     \usepackage[final]{neurips_2018}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+
+\title{On the equivalence of Causal Path Entropy and Empowerment}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to LaTeX to determine where to break the
+% lines. Using \AND forces a line break at that point. So, if LaTeX puts 3 of 4
+% authors names on the first line, and the last on the second line, try using
+% \AND instead of \And before the third author name.
+
+\author{%
+  Aidan Rocke\\
+  \texttt{aidanrocke@gmail.com} \\
+  % examples of more authors
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \AND
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+  % \And
+  % Coauthor \\
+  % Affiliation \\
+  % Address \\
+  % \texttt{email} \\
+}
+
+\begin{document}
+% \nipsfinalcopy is no longer used
+
+\maketitle
+
+\begin{abstract}
+   The main contribution of this paper is to show that within the context of adaptive agents, the Causal Path Entropy and Empowerment, are equivalent only in deterministic environments. In non-deterministic environments, it is shown that the Causal Path Entropy generally under-estimates the number of intrinsic options available to an agent unlike Empowerment. In fact, it is shown that the difference between Causal Path Entropy and Empowerment can't be increased without diminishing Empowerment. 
+\end{abstract}
+
+\section{Causal Path Entropy for adaptive agents}
+
+We shall start by defining the notion of Causal Path Entropy, introduced in [1], show how it simplifies to a conditional Shannon entropy for digital organisms, and extend it so that it explicitly accounts for actions taken by an organism: 
+
+1. For any open thermodynamic system such as a biological organism we may treat phase-space paths taken by the system over a time interval $[0,\tau]$ as microstates and partition them into macrostates $\{X_i\}_{i\in I}$ using the equivalence relation:
+
+\begin{equation}
+x(t) \sim x'(t) \iff x(0)=x'(0)	
+\end{equation}
+
+As a result, we can identify each macrostate $X_i$ with a present system state $x(0)$.
+
+2. We may define the Causal Path Entropy $S_c$ of a macrostate $X_i$ associated with the present system state $x(0)$ as the path integral:
+
+\begin{equation}
+S_c(X_i,\tau)=-k_B \int_{x(t)} P(x(t)|x(0))\ln P(x(t)|x(0)) Dx(t)
+\end{equation}
+
+where $k_B$ is the Boltzmann constant. 
+
+3. It must be noted that in order to calculate $(2)$ we need the state-transition probability distribution $P(x(t)|x(0))$ which corresponds to an exact simulator of the agent's environment. Given that this is generally unknown to the agent at the instant $x(0)$, macrostates $X_i$ are generally unknown to the agent as well, and therefore it's more epistemically sound to denote the Causal Path Entropy as:
+
+\begin{equation}
+S_c(x(0))=-k_B \int_{x(t)} p(x(t)|x(0))\ln p(x(t)|x(0)) Dx(t)
+\end{equation}
+
+where $p(x(t)|x(0))$ denotes a subjective state-transition probability distribution.
+
+\newpage
+
+4. If the organism is digital, i.e. simulated by a Turing machine, we may drop the Boltzmann constant and a discrete phase-space implies that $S_c(x(0))$ simplifies to the Shannon path entropy:
+
+
+\begin{equation}
+\begin{array}{l@{}l}
+S_c(x_0) 
+    &{}= - \sum\limits_{x_n} p(x_n|x_0)\ln p(x_0|x_0) \\
+    &{}= H(x_n|x_0) \\
+\end{array}
+\end{equation}
+
+5. In order for the calculation of Causal Path Entropy to be useful for a digital organism we must explicitly account for its agency which is determined by its capacity for rational action in the world. 
+
+6. If $\mathcal{A}$ denotes a discrete action space and $\mathcal{X}$ denotes a discrete state space:
+
+\begin{equation}
+p(x_n|x_0)= \frac{p(x_n,a_{1:n}|x_0)}{p(a_{1:n}|x_n,x_0)}
+\end{equation}
+
+where $a_{1:n} \in \mathcal{A}^n$ is an n-tuple of actions and $x_0,x_n \in \mathcal{X}$.
+
+7. Now, we may note that $p(x_n,a_{1:n}|x_0)$ in the numerator of $(5)$ may be expressed in terms of the agent's conditional distribution over n-step action sequences $w(a_{1:n}|x_0)$:
+
+\begin{equation}
+p(x_n,a_{1:n}|x_0)= w(a_{1:n}|x_0)p(x_n|a_{1:n},x_0)
+\end{equation}
+
+8. By combining $(5)$ and $(6)$ we have:
+
+\begin{equation}
+p(x_n|x_0)= \frac{w(a_{1:n}|x_0)p(x_n|a_{1:n},x_0)}{p(a_{1:n}|x_n,x_0)}
+\end{equation}
+
+9. Using $(7)$ the Causal Path Entropy becomes:
+
+\begin{equation}
+S_c(x_0) = \max\limits_{w} \mathbb{E} \big[ \ln \big( \frac{p(a_{1:n}|x_n,x_0)}{w(a_{1:n}|x_0)p(x_n|a_{1:n},x_0)}\big)\big]
+\end{equation}
+
+Hence, we have:
+
+\begin{equation}
+S_c(x_0) = \max\limits_{w} \big[H(a_{1:n}|x_0)-H(a_{1:n}|x_n,x_0) +H(x_n|a_{1:n},x_0)\big]
+\end{equation}
+
+$(9)$ shall be useful in analysing the difference between the Causal Path Entropy and Empowerment, which we shall now introduce.  
+
+
+
+\section{Empowerment}
+
+We shall introduce the n-step empowerment as was done in [3] where the n-step empowerment is defined by searching for the maximal mutual information $I(\cdot,\cdot)$ conditional on a starting state $x_0$ between a sequence of $n \in \mathbb{N}$ actions $a_{1:n}$ and the final state reached $x_n$:
+
+\begin{equation}
+\xi(x_0) = \max\limits_{w} I(a_{1:n},x_n|x_0)=\max\limits_{w} \mathbb{E}  \big[ \ln \big( \frac{p(a_{1:n},x_n|x_0)}{w(a_{1:n}|x_0)p(x_n|x_0)}\big)\big]
+\end{equation}
+
+2. Hence, $(10)$ may be expressed as the difference of two conditional Shannon entropies:
+
+\begin{equation}
+\xi(x_0) = \max\limits_{w} \big[H(a_{1:n}|x_0)-H(a_{1:n}|x_n,x_0) \big]
+\end{equation}
+
+where we used the fact that $p(a_{1:n}|x_n,x_0)=\frac{p(a_{1:n},x_n|x_0)}{p(x_n|x_0)}$.
+
+\newpage
+
+\section{Equivalence of Empowerment and Causal Path Entropy}
+
+1. If we combine $(9)$ and $(11)$ we find that the Causal Path Entropy at $x_0$ may be expressed in terms of the Empowerment at $x_0$:
+
+\begin{equation}
+S_c(x_0) = \xi(x_0)  + \max\limits_{w} \big[H(x_n|a_{1:n},x_0)\big]
+\end{equation}
+
+2. Therefore, in order to have equivalence we must have:
+
+\begin{equation}
+H(x_n|a_{1:n},x_0) = 0
+\end{equation}
+
+which is true if and only if $p(x_n|a_{1:n},x_0) = 1 \oplus 0$ (where $\oplus$ denotes XOR) and this is the case only in deterministic environments. 
+
+3. It must be noted that in deterministic environments $(12)$ simplifies to:
+
+\begin{equation}
+S_c(x_0) = \xi(x_0)  = \ln N_{x_0}
+\end{equation}
+
+where $N_{x_0} \geq 1$ represents the number of intrinsic options $a_{1:n} \in \mathcal{A}^n$ available at $x_0$. 
+
+\section{Discussion}
+
+Whenever $S_c(x_0) \neq \xi(x_0)$ we must have $H(x_n|a_{1:n},x_0) > 0$ so the Causal Path Entropy provides intrinsic compensation for:
+
+1. Exploring unpredictable environments. \\
+2. Exploring unknown environments. \\
+3. Unreliable actuators. \\
+4. Unreliable sensors. \\
+
+Moreover, maximisation of $H(x_n|a_{1:n},x_0)$ corresponds to making actions maximally uninformative about the terminal state $x_n$. It follows that the Causal Path Entropy does less than accurately measure an agent's number of intrinsic options. This is especially clear if we use $(4)$ and $(12)$ to re-formulate the Empowerment of the agent at $x(0)$:
+
+\begin{equation}
+\xi(x_0) = S_c(x_0)  + \max\limits_{w} \big[H(x_n|a_{1:n},x_0)\big] =  \max\limits_{w} \big[H(x_n|x_0) -H(x_n|a_{1:n},x_0)\big]
+\end{equation}
+
+From $(15)$ we deduce that in non-deterministic environments the difference between Causal Path Entropy and Empowerment, i.e. $H(x_n|a_{1:n},x_0)$, can't be increased without diminishing Empowerment. 
+
+\textbf{Acknowledgements}: I'd like to thank Nicholas Guttenberg for invaluable discussions and feedback.
+
+\section*{References}
+
+\small
+
+[1] Gross, A. Wissner.\ (2013) Causal Entropic Forces. Physical Review Letters.
+
+[2] Salge, C., Glackin, C.\ \& Polani, D.\ Empowerment-An Introduction. Arxiv. 
+
+[3] Mohamed, S., Rezende, D.\ Variational Information Maximisation for Intrinsically Motivated Reinforcement Learning. Arxiv. 
+
+\end{document}
