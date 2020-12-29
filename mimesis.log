@@ -218,4 +218,123 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@lastruleclass=\count191
 \@thisrulewidth=\dimen159
 )
-(/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/amsfon
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks19
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/units/nicefrac.sty
+Package: nicefrac 1998/08/04 v0.9b Nice fractions
+\L@UnitsRaiseDisplaystyle=\skip61
+\L@UnitsRaiseTextstyle=\skip62
+\L@UnitsRaiseScriptstyle=\skip63
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+))
+(/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/microtype.sty
+Package: microtype 2019/11/18 v2.7d Micro-typographical refinements (RS)
+\MT@toks=\toks20
+\MT@count=\count192
+LaTeX Info: Redefining \textls on input line 790.
+\MT@outer@kern=\dimen160
+LaTeX Info: Redefining \textmicrotypecontext on input line 1354.
+\MT@listname@count=\count193
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/microtype-pdftex.def
+File: microtype-pdftex.def 2019/11/18 v2.7d Definitions specific to pdftex (RS)
+
+LaTeX Info: Redefining \lsstyle on input line 914.
+LaTeX Info: Redefining \lslig on input line 914.
+\MT@outer@space=\skip64
+)
+Package microtype Info: Loading configuration file microtype.cfg.
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/microtype/microtype.cfg
+File: microtype.cfg 2019/11/18 v2.7d microtype main configuration file (RS)
+))
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2020/01/20 v2.17e AMS math features
+\@mathmargin=\skip65
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks21
+\ex@=\dimen161
+))
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen162
+)
+(/usr/local/texlive/2020/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count194
+LaTeX Info: Redefining \frac on input line 227.
+\uproot@=\count195
+\leftroot@=\count196
+LaTeX Info: Redefining \overline on input line 389.
+\classnum@=\count197
+\DOTSCASE@=\count198
+LaTeX Info: Redefining \ldots on input line 486.
+LaTeX Info: Redefining \dots on input line 489.
+LaTeX Info: Redefining \cdots on input line 610.
+\Mathstrutbox@=\box45
+\strutbox@=\box46
+\big@size=\dimen163
+LaTeX Font Info:    Redeclaring font encoding OML on input line 733.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 734.
+\macc@depth=\count199
+\c@MaxMatrixCols=\count266
+\dotsspace@=\muskip17
+\c@parentequation=\count267
+\dspbrk@lvl=\count268
+\tag@help=\toks22
+\row@=\count269
+\column@=\count270
+\maxfields@=\count271
+\andhelp@=\toks23
+\eqnshift@=\dimen164
+\alignsep@=\dimen165
+\tagshift@=\dimen166
+\tagwidth@=\dimen167
+\totwidth@=\dimen168
+\lineht@=\dimen169
+\@envbody=\toks24
+\multlinegap=\skip66
+\multlinetaggap=\skip67
+\mathdisplay@stack=\toks25
+LaTeX Info: Redefining \[ on input line 2859.
+LaTeX Info: Redefining \] on input line 2860.
+)
+./mimesis.tex:14: Too many }'s.
+<recently read> }
+                 
+l.14 \usepackage{amsmath}}
+                          
+? 
+./mimesis.tex:14: Emergency stop.
+<recently read> }
+                 
+l.14 \usepackage{amsmath}}
+                          
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 7038 strings out of 480608
+ 107288 string characters out of 5903629
+ 405518 words of memory out of 5000000
+ 22863 multiletter control sequences out of 15000+600000
+ 533982 words of font info for 25 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 38i,0n,49p,247b,93s stack positions out of 5000i,500n,10000p,200000b,80000s
+./mimesis.tex:14:  ==> Fatal error occurred, no output PDF file produced!
